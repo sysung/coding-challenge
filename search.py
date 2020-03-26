@@ -1,23 +1,25 @@
 import csv
-import os.path
+import os
 import sys
 
-# TODO: Comment and document code
 
-def check_line_arguement():
-
+def check_line_argument():
+    """ 
+    Checks if the supplied command line arguements are correct and valid.
+    If there are any errors, 
+    """
     error = False
 
     if len(sys.argv) < 3:
-        print("Error: insufficient command line arguments")
+        sys.stderr.write("Error: insufficient command line arguments\n")
         error = True
 
-    if not os.path.isfile(sys.argv[1]):
-        print("Error: file does not exist")
+    if len(sys.argv) > 2 or not os.path.isfile(sys.argv[1]):
+        sys.stderr.write("Error: file does not exist\n")
         error = True
 
     if error:
-        print("python3 search.py <csv> [search terms(s)...]")
+        sys.stderr.write("python3 search.py <csv> [search terms(s)...]\n")
         exit()
 
 
@@ -59,13 +61,12 @@ def find(doc_dict, terms):
 
 
 def main():
-    check_line_arguement()
+    check_line_argument()
     doc_dict = read_csv()
     id_title = find(doc_dict, sys.argv[2:])
     for i in id_title:
         print(i)
 
-# TODO: Add unit tests
 
 if __name__ == "__main__":
     main()
