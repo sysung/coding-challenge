@@ -35,7 +35,7 @@ class tests(unittest.TestCase):
 
 
     def test_insufficient_cli_arguments(self):
-        
+
         out = subprocess.Popen(["python3", "search.py", "exercise_data.csv"], 
             stdout=subprocess.PIPE, 
             stderr=subprocess.STDOUT)
@@ -113,6 +113,18 @@ class tests(unittest.TestCase):
         id_title_upper = stdout_lower.splitlines()
         
         self.assertTrue(id_title_lower.sort() == id_title_upper.sort())
+
+
+    def test_title_and_body(self):
+
+        out = subprocess.Popen(["python3", "search.py", "exercise_data2.csv", "japanese"], 
+            stdout=subprocess.PIPE, 
+            stderr=subprocess.STDOUT)
+        stdout, stderr = out.communicate()
+        id_title_prog = stdout.splitlines()
+        id_title_correct = [id_title_actual[0]]
+        self.assertTrue(id_title_prog.sort() == id_title_correct.sort())
+
 
 if __name__ == "__main__":
     unittest.main()
